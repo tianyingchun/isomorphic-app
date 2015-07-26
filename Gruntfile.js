@@ -29,21 +29,16 @@ module.exports = function(grunt) {
             cwd: './',
 
             // the default transform react jsx source files related Gruntfile.js.
-            reactJsx: './react/**/*.jsx',
+            reactJsx: './public/react/**/*.jsx',
 
-            reactJsxEntryFile: './react/Bootstrap.jsx',
+            eslint: './public/react/**/*{.jsx,.js}',
 
-            // the transformed jsx destination directory for all corresponding related Gruntfile.js
-            reactifyDestDir: './public/js/reactify',
+            reactEntry: './public/react/start.jsx',
 
             // the bundled destination directory.
             bundleDestDir: './public/js/browserify',
 
-            vendorDestDir: './public/js/vendor',
-
-            // used to build external libaray code e.g. react, reflux.
-            // and exclude from default project module.
-            externalDestDir: './public/js/vendor'
+            vendorDestDir: './public/js/vendor'
 
         },
 
@@ -57,29 +52,8 @@ module.exports = function(grunt) {
             },
             react: [
                 // 'Gruntfile.js',
-                '<%= _modules.reactJsx %>',
-                './stores/**/*.js',
-                './actions/**/*.js'
+                '<%= _modules.eslint %>'
             ]
-        },
-        // grunt react plugin
-        // https://www.npmjs.com/package/grunt-react#options-sourcemap
-        // using react grunt we can transform all .jsx to corresponding .js in order to we can know about the
-        // react nature principle, learn purpose.
-        react: {
-            options: {
-                sourceMap: true
-            },
-            dynamicMappings: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= _modules.cwd %>',
-                    src: ['<%= _modules.reactJsx %>'],
-                    dest: '<%= _modules.reactifyDestDir %>',
-                    ext: '.js',
-                    extDot: 'last'
-                }]
-            }
         },
         watch: {
             react: {
@@ -137,10 +111,10 @@ module.exports = function(grunt) {
             // using `external` to ignore it.
             'vendor': {
                 options: {
-                    require: ['react', 'reflux']
+                    require: ['react', 'reflux','react-router']
                 },
                 src: [],
-                dest: '<%= _modules.externalDestDir %>/react.js'
+                dest: '<%= _modules.vendorDestDir %>/react.js'
             },
             'vendorIe8': {
                 options: {
@@ -148,17 +122,17 @@ module.exports = function(grunt) {
                     require: ['es5-shim/es5-shim', 'es5-shim/es5-sham', 'console-polyfill']
                 },
                 src: [],
-                dest: '<%= _modules.externalDestDir %>/react.ie8fix.js'
+                dest: '<%= _modules.vendorDestDir %>/react.ie8fix.js'
             },
             // for debug mode using reactify plugin
             'clientDebug': {
                 options: {
                     // excluded react, reflux dependancy while compile phase.
-                    external: ['react', 'reflux'],
+                    external: ['react', 'reflux', 'react-router'],
 
                     browserifyOptions: {
                         debug: true,
-                        entry: "<%= _modules.reactJsxEntryFile %>"
+                        entry: "<%= _modules.reactEntry %>"
                     },
                     transform: [
                         ['reactify', {
@@ -174,13 +148,18 @@ module.exports = function(grunt) {
             'clientProd': {
                 options: {
                     // excluded react, reflux dependancy while compile phase.
-                    external: ['react', 'reflux'],
+                    external: ['react', 'reflux', 'react-router'],
 
                     browserifyOptions: {
                         debug: false,
-                        entry: "<%= _modules.reactJsxEntryFile %>"
+                        entry: "<%= _modules.reactEntry %>"
                     },
-                    transform: [require('grunt-react').browserify]
+                    transform: [
+                        ['reactify', {
+                            'es6': true
+                        }]
+                        // require('grunt-react').browserify
+                    ]
                 },
                 src: ['<%= _modules.reactJsx %>'],
                 dest: '<%= _modules.bundleDestDir %>/bundle.js'

@@ -14,11 +14,11 @@ var Message = React.createClass({
 
   componentDidMount: function () {
     // from the path `/inbox/messages/:id`
-    // var id = this.props.params.id;
+    var id = this.props.params.id;
 
-    // this.setState({
-    //   message: 'componentDidMount' + id
-    // });
+    this.setState({
+      message: 'componentDidMount' + id
+    });
 
   },
   render: function () {

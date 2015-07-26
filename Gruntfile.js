@@ -128,7 +128,7 @@ module.exports = function(grunt) {
             // using `external` to ignore it.
             'vendor': {
                 options: {
-                    require: ['react', 'reflux','react-router']
+                    require: ['react', 'reflux','react-router','react/addons']
                 },
                 src: [],
                 dest: '<%= _modules.vendorDestDir %>/react.js'
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
             'clientDebug': {
                 options: {
                     // excluded react, reflux dependancy while compile phase.
-                    external: ['react', 'reflux', 'react-router'],
+                    external: ['react', 'reflux', 'react-router', 'react/addons'],
 
                     browserifyOptions: {
                         debug: true,
@@ -165,7 +165,7 @@ module.exports = function(grunt) {
             'clientProd': {
                 options: {
                     // excluded react, reflux dependancy while compile phase.
-                    external: ['react', 'reflux', 'react-router'],
+                    external: ['react', 'reflux', 'react-router', 'react/addons'],
 
                     browserifyOptions: {
                         debug: false,

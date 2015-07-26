@@ -7,10 +7,12 @@ var React = require('react');
 /*eslint-disable no-unused-vars*/
 var Router = require('react-router');
 
-var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute;
-var NotFoundRoute = Router.NotFoundRoute;
-var Redirect = Router.Redirect;
+// var Route = Router.Route;
+// var DefaultRoute = Router.DefaultRoute;
+// var NotFoundRoute = Router.NotFoundRoute;
+// var Redirect = Router.Redirect;
+
+var { Route, DefaultRoute, NotFoundRoute, Redirect } = Router;
 
 var App = require('./components/App.jsx');
 var Home = require('./components/Home.jsx');

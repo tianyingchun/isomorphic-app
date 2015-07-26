@@ -18,7 +18,7 @@ if (typeof window !== 'undefined') {
       // This is our callback function, whenever the url changes it will be called again.
       // Handler: The ReactComponent class that will be rendered
       .run((Root) => {
-        React.render(<Root />, document.body);
+        React.render(<Root />, document.getElementById('react-app'));
       });
   };
 }

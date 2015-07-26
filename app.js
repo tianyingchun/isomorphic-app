@@ -10,6 +10,7 @@ var helper = require('./helpers');
 var debug = require('debug')(config.appName);
 //For requiring `.jsx` files as Node modules
 require('node-jsx').install({
+    harmony: true,
     extension: '.jsx'
 });
 
@@ -19,7 +20,6 @@ var ReactAsync = require('react-async');
 var ReactRouter = require('react-router');
 var ReactExpressLocation = require('react-router-express');
 var appRoutes = require('./public/react/routes.jsx');
-
 
 var app = express();
 // debug version.

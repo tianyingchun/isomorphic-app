@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "start": "node ./bin/www",
+        "start": "NODE_ENV=development node ./bin/www",
         "main": "./bin/www"
     },
     "engines": {
@@ -44,6 +44,8 @@
         "grunt-nodemon": "0.4.0",
         "grunt-react": "0.12.2",
         "reactify": "*",
+        "envify": "~3.4.0",
+        "grunt-envify": "~0.0.2",
         "matchdep": "*",
         "eslint": "*",
         "grunt-eslint": "*",

@@ -31,6 +31,8 @@ module.exports = function(grunt) {
             // the default transform react jsx source files related Gruntfile.js.
             reactJsx: './public/react/**/*.jsx',
 
+            reactifyDestDir: './public/js/reactify',
+            
             eslint: './public/react/**/*{.jsx,.js}',
 
             reactEntry: './public/react/start.jsx',
@@ -54,6 +56,21 @@ module.exports = function(grunt) {
                 // 'Gruntfile.js',
                 '<%= _modules.eslint %>'
             ]
+        },
+        react: {
+            options: {
+                sourceMap: true
+            },
+            dynamicMappings: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= _modules.cwd %>',
+                    src: ['<%= _modules.reactJsx %>'],
+                    dest: '<%= _modules.reactifyDestDir %>',
+                    ext: '.js',
+                    extDot: 'last'
+                }]
+            }
         },
         watch: {
             react: {

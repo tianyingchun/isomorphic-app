@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config')();
@@ -30,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -51,7 +51,7 @@ route.init(app);
 // Render React on Server
 app.use(function(req, res) {
     var location = new ReactExpressLocation(req.url, res);
-    
+
     ReactRouter.run(appRoutes, location, function(Root, state) {
         // res.setHeader('Content-Type', 'text/html');
         var appFactory = React.createFactory(Root);

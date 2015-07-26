@@ -66,8 +66,7 @@ module.exports = {
             status = data.status || (options && options.status) || 500;
             message = data.message || 'The unknown exception!';
         }
-        console.log("1111")
-        res.json(status, {
+        res.status(status).json({
             code: status,
             data: data || null,
             message: message

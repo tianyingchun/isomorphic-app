@@ -35,16 +35,16 @@ module.exports = function(grunt) {
             // the default transform react jsx source files related Gruntfile.js.
             reactJsx: './public/react/**/*.jsx',
 
-            reactifyDestDir: './public/js/reactify',
+            reactifyDestDir: './public/built/reactify',
 
             eslint: './public/react/**/*{.jsx,.js}',
 
             reactEntry: './public/react/start.jsx',
 
             // the bundled destination directory.
-            bundleDestDir: './public/js/browserify',
+            bundleDestDir: './public/built/browserify',
 
-            vendorDestDir: './public/js/vendor'
+            vendorDestDir: './public/built/vendor'
 
         },
 

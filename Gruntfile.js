@@ -33,13 +33,14 @@ module.exports = function(grunt) {
             NODE_ENV: 'development', //'production'
 
             // the default transform react jsx source files related Gruntfile.js.
-            reactJsx: './public/react/**/*.jsx',
+            reactJsx: './app/**/*.jsx',
 
+            eslint: './app/**/*{.jsx,.js}',
+
+            reactEntry: './app/start.jsx',
+
+            // learn purpose compile all .jsx file.
             reactifyDestDir: './public/built/reactify',
-
-            eslint: './public/react/**/*{.jsx,.js}',
-
-            reactEntry: './public/react/start.jsx',
 
             // the bundled destination directory.
             bundleDestDir: './public/built/browserify',
@@ -189,7 +190,7 @@ module.exports = function(grunt) {
         // start node server and watch the changes of js,jsx,html,ejs
         nodemon: {
             dev: {
-                script: 'bin/www',
+                script: 'server/bin/www',
                 options: {
                     env: {
                         // for development, isomorphic server render react

@@ -19,7 +19,7 @@ var React = require('react');
 var ReactAsync = require('react-async');
 var ReactRouter = require('react-router');
 var ReactExpressLocation = require('react-router-express');
-var appRoutes = require('./public/react/routes.jsx');
+var appRoutes = require('../app/routes.jsx');
 
 var app = express();
 // debug version.
@@ -29,7 +29,7 @@ app.set('env', config.mode);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(path.join(__dirname , '../public/favicon.ico')));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -42,7 +42,7 @@ app.use(cookieParser());
 //  'text/xml': ['plist']
 // });
 // the default is "/" capture the static dir as all static resource root.
-app.use("/static", express.static(path.join(__dirname, 'public')));
+app.use("/static", express.static(path.join(__dirname, '../public')));
 
 
 // Initialize application routing configuraton.

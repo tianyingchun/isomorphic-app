@@ -14,7 +14,7 @@ var Router = require('react-router');
 
 var { Route, DefaultRoute, NotFoundRoute, Redirect } = Router;
 
-var App = require('./components/App.jsx');
+var BootStrap = require('./BootStrap.jsx');
 var Home = require('./components/Home.jsx');
 var NotFound = require('./components/NotFound.jsx');
 var About = require('./components/About.jsx');
@@ -23,7 +23,7 @@ var Message = require('./components/Message.jsx');
 
 // declare our routes and their hierarchy
 var routes = (
-    <Route path="/" handler={App}>
+    <Route path="/" handler={BootStrap}>
         <DefaultRoute name="home" handler={Home}/>
         <Route name="about" path="about" handler={About}/>
         <Route name="inbox" path="inbox" handler={Inbox}>

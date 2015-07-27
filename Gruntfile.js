@@ -218,7 +218,7 @@ module.exports = function(grunt) {
 
     // The development build.
     grunt.registerTask('default', [
-        'eslint', 'vendor', 'browserify:dev'
+        /*'eslint',*/ 'vendor', 'browserify:dev'
     ]);
     // The production build.
     grunt.registerTask('prod', [

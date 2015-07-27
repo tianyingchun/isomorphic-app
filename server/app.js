@@ -53,13 +53,13 @@ app.use(function(req, res) {
     var location = new ReactExpressLocation(req.url, res);
 
     ReactRouter.run(appRoutes, location, function(Root, state) {
-        // res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Content-Type', 'text/html');
         var appFactory = React.createFactory(Root);
         var markup = React.renderToString(appFactory());
-        // res.send('<!DOCTYPE html>' + markup);
-        res.render('index', {
-            content: markup
-        });
+        res.send('<!DOCTYPE html>' + markup);
+        // res.render('index', {
+        //     content: markup
+        // });
     });
 });
 

@@ -18,7 +18,7 @@ var BootStrap = React.createClass({
 				<title>The isomorphic app sample</title>
 				<link href="static/built/styles/bootstrap.css" rel="stylesheet" />
 				<script type="text/javascript" src="/static/built/vendor/react.js"></script>
-				<script type="text/javascript" src="/static/built/browserify/bundle.js"></script>
+				<script type="text/javascript" src="/static/built/app/bundle.js"></script>
 			</head>
 			<body>
 				<App />

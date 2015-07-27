@@ -7,9 +7,9 @@ var React = require('react');
 var App = require('./components/App.jsx');
 
 var BootStrap = React.createClass({
-	render: function () {
-		return (
-			<html>
+  render: function () {
+    return (
+      <html>
 			<head lang="en">
 				<base href="/" />
 				<meta charSet="utf-8" />
@@ -24,8 +24,8 @@ var BootStrap = React.createClass({
 				<App />
 			</body>
 			</html>
-		);
-	}
+    );
+  }
 });
 
 module.exports = BootStrap;

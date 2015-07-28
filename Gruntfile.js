@@ -2,6 +2,9 @@ var envify = require('envify/custom');
 
 module.exports = function (grunt) {
 
+  // require it at the top and pass in the grunt instance
+  require('time-grunt')(grunt);
+
   // var banner = [
   //   '/**',
   //   ' * <%= pkg.name %> <%= pkg.version %>',
@@ -205,7 +208,6 @@ module.exports = function (grunt) {
       }
     }
   });
-
 
   // grunt.loadNpmTasks('grunt-react');
   // grunt.loadNpmTasks('grunt-browserify');

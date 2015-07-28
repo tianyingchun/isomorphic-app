@@ -13,12 +13,12 @@ var todoService = new TodoService();
  * URL :/todo/list
  * Get all todo items.
  */
-router.get("/list", function(req, res) {
-    todoService.getTodoList().then(function success(result) {
-        helper.renderAction(res, 'todoList', result);
-    }, function error(error) {
-        helper.renderAction(res, 'error', error);
-    });
+router.get("/list", function (req, res) {
+  todoService.getTodoList().then(function success(result) {
+    helper.renderAction(res, 'todoList', result);
+  }, function error(error) {
+    helper.renderAction(res, 'error', error);
+  });
 });
 
 

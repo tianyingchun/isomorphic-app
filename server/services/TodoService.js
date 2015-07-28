@@ -6,13 +6,14 @@ var TodoListDal = dataProvider.getDataAccess("TodoList");
 var TodoItemModel = dataProvider.getModel("TodoItem");
 
 function TodoServiceProvider() {
-    // instance.
-    var todoListDal = new TodoListDal();
-    /**
-     * @return {promise}
-     */
-    this.getTodoList = function() {
-        return todoListDal.getTodoList();
-    };
+  // instance.
+  var todoListDal = new TodoListDal();
+  /**
+   * @return {promise}
+   */
+  this.getTodoList = function () {
+    return todoListDal.getTodoList();
+  };
 }
+
 module.exports = TodoServiceProvider;

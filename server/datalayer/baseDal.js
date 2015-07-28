@@ -6,16 +6,16 @@ var Q = require("q");
  * @return {promise}
  */
 function promise(results, err) {
-    var deferred = Q.defer();
-    // has error here.
-    if (err) {
-        deferred.reject(err);
-    } else {
-        deferred.resolve(results);
-    }
-    return deferred.promise;
-};
+  var deferred = Q.defer();
+  // has error here.
+  if (err) {
+    deferred.reject(err);
+  } else {
+    deferred.resolve(results);
+  }
+  return deferred.promise;
+}
 
 module.exports = {
-    promise: promise
+  promise: promise
 };

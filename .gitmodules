@@ -1,3 +1,6 @@
 [submodule "app/react-ui"]
 	path = app/react-ui
 	url = https://github.com/tianyingchun/react_ui.git
+[submodule "style/basic"]
+	path = style/basic
+	url = https://github.com/tianyingchun/react_style.git

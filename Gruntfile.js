@@ -3,18 +3,18 @@ var envify = require('envify/custom');
 module.exports = function (grunt) {
 
   // var banner = [
-  //     '/**',
-  //     ' * <%= pkg.name %> <%= pkg.version %>',
-  //     ' * <%= pkg.homepage %>',
-  //     ' * Copyright (c) 2013 Luiz de Prá (AKA RawArkanis) http://luizdepra.com.br',
-  //     ' * <%= pkg.description %>',
-  //     ' * built on: ' + new Date(),
-  //     ' */',
-  //     ''
+  //   '/**',
+  //   ' * <%= pkg.name %> <%= pkg.version %>',
+  //   ' * <%= pkg.homepage %>',
+  //   ' * Copyright (c) 2013 Luiz de Prá (AKA RawArkanis) http://luizdepra.com.br',
+  //   ' * <%= pkg.description %>',
+  //   ' * built on: ' + new Date(),
+  //   ' */',
+  //   ''
   // ].join("\n");
 
   //
-  // reference: grunt-react/Gruntfile.js
+  // Reference: grunt-react/Gruntfile.js
   // https://github.com/jmreidy/grunt-browserify
   // http://javascript.ruanyifeng.com/tool/browserify.html
   // http://javascript.ruanyifeng.com/tool/grunt.html
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
           // outputFile:''
           // format: require('eslint-tap')
       },
-      react: [
+      'react': [
         // 'Gruntfile.js',
         '<%= _modules.eslint %>'
       ]
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
       options: {
         sourceMap: true
       },
-      dynamicMappings: {
+      'dynamicMappings': {
         files: [{
           expand: true,
           cwd: '<%= _modules.cwd %>',
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
         }
       },
       // handle react lib process.env.NODE_ENV.
-      react: {
+      'react': {
         src: ['<%=browserify.vendor.dest %>'],
         dest: '<%= _modules.vendorDestDir %>/react-envified.js'
       }
@@ -102,7 +102,7 @@ module.exports = function (grunt) {
         banner: '<%= banner%>',
 
         compress: {
-          // maybe in our js code:
+          // Maybe we can do like below in code:
           // if we set global_defs.DEBUG==false, it will ignore console.log("xxxxx")
           // if(DEBUG) {
           //     console.log("xxxx")
@@ -113,9 +113,20 @@ module.exports = function (grunt) {
           dead_code: true
         }
       },
+      // The ie8 polyfill support for reactjs.
+      'vendorIe8': {
+        src: ['./public/lib/es5-shim/**/*.js', './public/lib/console-polyfill/**/*.js'],
+        dest: '<%= _modules.vendorDestDir %>/react.ie8fix.js'
+      },
       // uglify task configuration goes here.
       // the named <core> `target`
-      prod: {
+      'prod': {
+        options: {
+          compress: {
+            //Specify drop_console: true as part of the compress options to discard calls to console.* function
+            drop_console: true
+          }
+        },
         files: {
           '<%= _modules.vendorDestDir %>/react.min.js': '<%=envify.react.dest %>',
           '<%= _modules.vendorDestDir %>/react.ie8fix.min.js': '<%= _modules.vendorDestDir %>/react.ie8fix.js',
@@ -132,14 +143,6 @@ module.exports = function (grunt) {
         dest: '<%= _modules.vendorDestDir %>/react.js',
         options: {
           require: ['react', 'reflux', 'react-router', 'react/addons']
-        }
-      },
-      'vendorIe8': {
-        src: [],
-        dest: '<%= _modules.vendorDestDir %>/react.ie8fix.js',
-        options: {
-          // 'queryselector-polyfill' for ie6,7
-          require: ['es5-shim/es5-shim', 'es5-shim/es5-sham', 'console-polyfill']
         }
       },
       // for debug mode using reactify plugin
@@ -189,7 +192,7 @@ module.exports = function (grunt) {
     },
     // start node server and watch the changes of js,jsx,html,ejs
     nodemon: {
-      dev: {
+      'dev': {
         script: 'server/bin/www',
         options: {
           env: {
@@ -212,8 +215,9 @@ module.exports = function (grunt) {
   // require('load-grunt-tasks')(grunt);
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+  // compile all vendor dependant modules.
   grunt.registerTask('vendor', [
-    'browserify:vendor', 'browserify:vendorIe8'
+    'browserify:vendor', 'uglify:vendorIe8'
   ]);
 
   // The development build.
@@ -222,6 +226,6 @@ module.exports = function (grunt) {
   ]);
   // The production build.
   grunt.registerTask('prod', [
-    'vendor', 'envify', 'browserify:prod', 'uglify'
+    'vendor', 'envify', 'browserify:prod', 'uglify:prod'
   ]);
 };

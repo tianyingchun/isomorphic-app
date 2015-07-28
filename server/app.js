@@ -56,7 +56,7 @@ app.use(function (req, res) {
     res.setHeader('Content-Type', 'text/html');
     var appFactory = React.createFactory(Root);
     var markup = React.renderToString(appFactory());
-    res.send('<!DOCTYPE html>' + markup);
+    res.send('<!DOCTYPE html>' + markup.replace('<%=pageTitle%>', config.appName));
     // res.render('index', {
     //     content: markup
     // });

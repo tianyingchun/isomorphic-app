@@ -60,7 +60,7 @@ module.exports = function (grunt) {
           // outputFile:''
           // format: require('eslint-tap')
       },
-      'react': [
+      react: [
         // 'Gruntfile.js',
         '<%= _modules.eslint %>'
       ]
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
       options: {
         sourceMap: true
       },
-      'dynamicMappings': {
+      dynamicMappings: {
         files: [{
           expand: true,
           cwd: '<%= _modules.cwd %>',
@@ -94,9 +94,20 @@ module.exports = function (grunt) {
         }
       },
       // handle react lib process.env.NODE_ENV.
-      'react': {
+      react: {
         src: ['<%=browserify.vendor.dest %>'],
         dest: '<%= _modules.vendorDestDir %>/react-envified.js'
+      }
+    },
+    concat: {
+       // The ie8 polyfill support for reactjs.
+      vendorIe8: {
+        src: [
+          './public/lib/es5-shim/es5-shim.js',
+          './public/lib/es5-shim/es5-sham.js',
+          './public/lib/console-polyfill/**/*.js'
+        ],
+        dest: '<%= _modules.vendorDestDir %>/react.ie8fix.js'
       }
     },
     uglify: {
@@ -111,19 +122,21 @@ module.exports = function (grunt) {
           //     console.log("xxxx")
           // }
           global_defs: {
-            'DEBUG': false
+            DEBUG: false
           },
           dead_code: true
         }
       },
       // The ie8 polyfill support for reactjs.
-      'vendorIe8': {
-        src: ['./public/lib/es5-shim/**/*.js', './public/lib/console-polyfill/**/*.js'],
-        dest: '<%= _modules.vendorDestDir %>/react.ie8fix.js'
+      vendorIe8: {
+        src: [
+          '<%=concat.vendorIe8.dest%>'
+        ],
+        dest: '<%= _modules.vendorDestDir %>/react.ie8fix.min.js'
       },
       // uglify task configuration goes here.
       // the named <core> `target`
-      'prod': {
+      prod: {
         options: {
           compress: {
             //Specify drop_console: true as part of the compress options to discard calls to console.* function
@@ -141,7 +154,7 @@ module.exports = function (grunt) {
     browserify: {
       // Cause of we don't want to build react,reflux libaray to bundle.js
       // using `external` to ignore it.
-      'vendor': {
+      vendor: {
         src: [],
         dest: '<%= _modules.vendorDestDir %>/react.js',
         options: {
@@ -149,7 +162,7 @@ module.exports = function (grunt) {
         }
       },
       // for debug mode using reactify plugin
-      'dev': {
+      dev: {
         files: {
           '<%= _modules.bundleDestDir %>/bundle.js': ['<%= _modules.reactJsx %>'],
         },
@@ -159,19 +172,19 @@ module.exports = function (grunt) {
 
           browserifyOptions: {
             debug: true,
-            entry: "<%= _modules.reactEntry %>"
+            entry: '<%= _modules.reactEntry %>'
           },
           transform: [
             envify({
               NODE_ENV: 'development'
             }), ['reactify', {
-              'es6': true
+              es6: true
             }]
           ]
         }
       },
       // for release
-      'prod': {
+      prod: {
         src: ['<%= _modules.reactJsx %>'],
         dest: '<%= _modules.bundleDestDir %>/bundle.js',
         options: {
@@ -180,13 +193,13 @@ module.exports = function (grunt) {
 
           browserifyOptions: {
             debug: false,
-            entry: "<%= _modules.reactEntry %>"
+            entry: '<%= _modules.reactEntry %>'
           },
           transform: [
             envify({
               NODE_ENV: 'production'
             }), ['reactify', {
-              'es6': true
+              es6: true
             }]
             // require('grunt-react').browserify
           ]
@@ -195,7 +208,7 @@ module.exports = function (grunt) {
     },
     // start node server and watch the changes of js,jsx,html,ejs
     nodemon: {
-      'dev': {
+      dev: {
         script: 'server/bin/www',
         options: {
           env: {
@@ -219,7 +232,7 @@ module.exports = function (grunt) {
 
   // compile all vendor dependant modules.
   grunt.registerTask('vendor', [
-    'browserify:vendor', 'uglify:vendorIe8'
+    'browserify:vendor', 'concat:vendorIe8', 'uglify:vendorIe8'
   ]);
 
   // The development build.

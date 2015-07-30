@@ -3,7 +3,6 @@
  */
 var React = require('react');
 var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
 var Link = Router.Link;
 
 var Inbox = React.createClass({
@@ -16,7 +15,7 @@ var Inbox = React.createClass({
               <br/>
               <a href="#archive/messages/4"> Message4</a>
           </p>
-          <RouteHandler/>
+          {this.props.children}
       </div>
     );
   }

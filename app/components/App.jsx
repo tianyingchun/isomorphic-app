@@ -2,7 +2,7 @@
  * @jsx React.DOM
  */
 var React = require('react');
-var Router = require('react-router');
+var Router = require('react-router-component');
 var Link = Router.Link;
 var App = React.createClass({
 
@@ -13,13 +13,13 @@ var App = React.createClass({
           <nav className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
                 <li>
-                    <Link to="home" >home</Link>
+                    <Link href="/home" >home</Link>
                 </li>
                 <li>
-                    <Link to="inbox" >inbox</Link>
+                    <Link href="/inbox" >inbox</Link>
                 </li>
                 <li>
-                    <Link to="about" >about</Link>
+                    <Link href="/about" >about</Link>
                 </li>
                 <li>
                     <a href="/notfound">notfound</a>

@@ -17,12 +17,12 @@ require('node-jsx').install({
 var React = require('react');
 // May we should use react Async to render html in server side.
 // var ReactAsync = require('react-async');
-var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
-var Location = require('react-router/lib/Location');
-var appRoutes = require('../app/routes.jsx');
+var Router = require('react-router-component')
+var Pages = Router.Pages
+var Page = Router.Page
 
-var Bootstrap = require('../app/BootStrap.jsx');
+var RouterStrap = require('../app/routers/App.jsx');
+
 var app = express();
 // debug version.
 app.set('env', config.mode);
@@ -50,25 +50,18 @@ app.use("/static", express.static(path.join(__dirname, '../public')));
 // Initialize application routing configuraton.
 route.init(app);
 
-// Render React on Server
-app.use(function (req, res, next) {
-  var location = new Location(req.path, req.query);
-  Router.run(appRoutes, location, function (err, initialState) {
-    if(err) {
-      next(err);
-    } else {
-      res.setHeader('Content-Type', 'text/html');
-      var appFactory = React.createFactory(Router);
-      var children = initialState.branch[1].component;
-      console.log(initialState)
-      var markup = React.renderToString(appFactory(initialState));
-      res.send('<!DOCTYPE html>' + markup.replace('<%=pageTitle%>', config.appName));
-      // res.render('index', {
-      //     content: markup
-      // });
-    }
-  });
+app.use('/', function (req, res) {
+  res.render('index', {
+    content: ''
+  })
 });
+// Render React on Server
+// app.use(function (req, res, next) {
+//   res.setHeader('Content-Type', 'text/html');
+//   var appFactory = React.createFactory(RouterStrap);
+//   var markup = React.renderToString(appFactory({path: req.path}));
+//   res.send('<!DOCTYPE html>' + markup.replace('<%=pageTitle%>', config.appName));
+// });
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {

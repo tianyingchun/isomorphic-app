@@ -8,16 +8,15 @@ var Message = React.createClass({
 
   getInitialState: function () {
     return {
-      message: 'loading'
+      message: 'loading message!'
     };
   },
 
   componentDidMount: function () {
     // from the path `/inbox/messages/:id`
-    var id = this.props.params.id;
 
     this.setState({
-      message: 'componentDidMount' + id
+      message: 'componentDidMount'
     });
 
   },

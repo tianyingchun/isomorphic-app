@@ -1,17 +1,12 @@
 /**
  * @jsx React.DOM
  */
-// var React = require('react');
-// var { Router } = require('react-router');
-var routes = require('./routes.jsx');
+var React = require('react');
+var App = require('./routers/App.jsx');
 
-// if (typeof window !== 'undefined') {
-//   window.onload = function () {
-//     Router.run(routes, Router.HistoryLocation, function () {
-//       React.render(
-//         <Router children= {routes} />,
-//         document);
-//     });
-//   };
-// }
-module.exports = routes;
+if (typeof window !== 'undefined') {
+  window.onload = function () {
+    React.render(<App />, document.getElementById('react-app'));
+  };
+}
+

@@ -158,7 +158,7 @@ module.exports = function (grunt) {
         src: [],
         dest: '<%= _modules.vendorDestDir %>/react.js',
         options: {
-          require: ['react', 'reflux', 'react-router']
+          require: ['react', 'reflux', 'react-router-component']
         }
       },
       // for debug mode using reactify plugin
@@ -168,7 +168,7 @@ module.exports = function (grunt) {
         },
         options: {
           // excluded react, reflux dependancy while compile phase.
-          external: ['react', 'reflux', 'react-router'],
+          external: ['react', 'reflux', 'react-router-component'],
 
           browserifyOptions: {
             debug: true,
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
         dest: '<%= _modules.bundleDestDir %>/bundle.js',
         options: {
           // excluded react, reflux dependancy while compile phase.
-          external: ['react', 'reflux', 'react-router'],
+          external: ['react', 'reflux', 'react-router-component'],
 
           browserifyOptions: {
             debug: false,
